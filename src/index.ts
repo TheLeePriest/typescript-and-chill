@@ -12,6 +12,9 @@ import { execSync } from 'child_process';
 import fs from 'fs';
 import { setupGitIgnore } from './git-ignore-stup';
 
+const args = process.argv.slice(2);
+const autoYes = args.includes('-y');
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
@@ -52,10 +55,15 @@ const askQuestion = (query: string): Promise<string> =>
 (async () => {
   console.log('⚡ Setting up your development environment...');
   const responses: Record<string, string> = {};
-  for (const q of questions) {
-    responses[q.name] =
-      ((await askQuestion(`${q.message} [${q.default}]: `)) as string) ||
-      q.default;
+
+  if (autoYes) {
+    questions.forEach((q) => (responses[q.name] = 'yes'));
+    console.log('✅ Running with all answers defaulted to YES');
+  } else {
+    for (const q of questions) {
+      responses[q.name] =
+        (await askQuestion(`${q.message} [${q.default}]: `)) || q.default;
+    }
   }
 
   rl.close();
@@ -72,7 +80,7 @@ const askQuestion = (query: string): Promise<string> =>
 
   if (responses.npmInit === 'yes') {
     console.log('📦 Initialising NPM...');
-    execSync('npm init', { stdio: 'inherit' });
+    execSync(`npm init ${autoYes ? '-y' : ''}`, { stdio: 'inherit' });
   }
 
   if (responses.installTypescript === 'yes') {
