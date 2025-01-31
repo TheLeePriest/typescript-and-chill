@@ -10,6 +10,7 @@ import path from 'path';
 import readline from 'readline';
 import { execSync } from 'child_process';
 import fs from 'fs';
+import { setupGitIgnore } from './git-ignore-stup';
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -87,6 +88,7 @@ const askQuestion = (query: string): Promise<string> =>
   setupESLint();
   setupPrettier();
   setupTsConfig();
+  setupGitIgnore();
   if (responses.testing === 'yes') setupJest();
   if (responses.awsCdk === 'yes') setupCDK();
   if (responses.ciCd === 'yes') setupCICD();
