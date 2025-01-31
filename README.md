@@ -1,5 +1,7 @@
 # TypeScript and Chill
 
+![TypeScript and Chill Banner](assets/tschillbanner.png)
+
 ## Overview
 
 **TypeScript and Chill** is an NPM package that automates the process of setting up a modern TypeScript development environment. Designed for developers working with **AWS CDK**, **serverless applications**, and **microservices**, this CLI tool ensures that every new project starts with a standardized and optimized development environment.
@@ -8,15 +10,14 @@ This tool eliminates the need for manually setting up **ESLint, Prettier, Jest, 
 
 ## Features
 
-✅ **Interactive CLI Setup** - Choose what to install based on project needs  
-✅ **Project Structure Creation** - Automatically sets up directories for CDK, source code, and testing  
-✅ **AWS CDK Initialization** - Ensures an up-to-date `cdk.json` configuration  
-✅ **Linting & Formatting** - Installs and configures **ESLint** and **Prettier**, including `.prettierignore`  
-✅ **Testing** - Configures **Jest** for unit and integration testing  
+✅ **Interactive CLI Setup** - Choose what to install based on project needs, or use the `-y` flag for automatic setup  
+✅ **Project Structure Creation** - Automatically sets up directories for CDK and source code  
+✅ **AWS CDK Initialization** - Ensures an up-to-date `cdk.json` configuration with the correct bin reference  
+✅ **Linting & Formatting** - Installs and configures **ESLint** and **Prettier**  
+✅ **Testing** - Configures **Jest** for unit testing  
 ✅ **CI/CD Integration** - Automatically sets up GitHub Actions for deployment  
 ✅ **Automatic TypeScript Compilation** - Installs and configures `esbuild`  
-✅ **Deployment Ready** - Ensures TypeScript projects are ready for AWS deployments  
-✅ **Changelog Management** - Automatically updates `CHANGELOG.md` and versioning for NPM releases
+✅ **Deployment Ready** - Ensures TypeScript projects are ready for AWS deployments
 
 ## Installation
 
@@ -26,46 +27,48 @@ To install and use this package in a new project:
 npx typescript-and-chill
 ```
 
-This will run the interactive CLI, guiding you through the setup process.
+To automatically accept all default options and install everything:
+
+```sh
+npx typescript-and-chill -y
+```
+
+This will run the interactive CLI (or default to "yes" for all options if `-y` is used), guiding you through the setup process.
 
 ## How It Works
 
 When you run `npx typescript-and-chill`, the CLI:
 
-1. **Prompts for setup options** (CDK, Jest, ESLint, etc.).
+1. **Prompts for setup options** (CDK, Jest, ESLint, etc.), unless `-y` is specified.
 2. **Installs dependencies** (`aws-cdk`, `eslint`, `jest`, `prettier`, `typescript`, `esbuild`).
-3. **Creates project directories** (`cdk/`, `cdk/stacks/`, `src/`, `tests/`).
-4. **Generates configuration files** (`.eslintrc.js`, `.prettierrc`, `.prettierignore`, `jest.config.js`, `tsconfig.json`, `cdk.json`).
-5. **Sets up CI/CD** - Adds a GitHub Actions workflow for automated deployments.
-6. **Ensures TypeScript Compilation** - Installs `esbuild` for efficient TS-to-JS compilation.
-7. **Automates Changelog Updates** - Updates `CHANGELOG.md` and increments the version on NPM releases.
+3. **Creates project directories** (`cdk/`, `cdk/stacks/`, `src/`).
+4. **Generates configuration files** (`.eslintrc.js`, `.prettierrc`, `jest.config.js`, `cdk.json`).
+5. **Ensures `cdk.json` is updated** - The correct bin file reference is automatically set.
+6. **Sets up CI/CD** - Adds a GitHub Actions workflow for automated deployments.
+7. **Ensures TypeScript Compilation** - Installs `esbuild` for efficient TS-to-JS compilation.
 
-## Directory Structure (For Development)
+## Directory Structure
 
-This package includes the following structure for development and publishing:
+After running the CLI, your project will have the following structure:
 
 ```
-typescript-and-chill/
-├── bin/                # Internal CLI scripts (not included in installer output)
-├── templates/          # Configuration templates (used during setup, not included in installer output)
-├── scripts/            # Utility scripts (e.g., changelog updater)
-├── src/                # Source code for the package
-├── tests/              # Unit tests
-├── cdk/                # AWS CDK-specific infrastructure
-│   ├── stacks/         # CDK stacks
-├── package.json        # Project dependencies and scripts
-├── CHANGELOG.md        # Changelog for package updates
-├── README.md           # Documentation
-└── .gitignore          # Git ignore rules
+my-new-project/
+├── bin/
+│   ├── app.ts       # CDK application entry file
+├── cdk/
+│   ├── stacks/      # CDK stacks directory
+├── src/             # Application source code (Lambda functions, etc.)
+├── .github/workflows/
+│   ├── deploy.yml   # CI/CD GitHub Actions workflow
+├── package.json     # Project dependencies and scripts
+├── README.md        # Documentation
+├── tsconfig.json    # TypeScript configuration
+├── .eslintrc.js     # ESLint configuration
+├── .prettierrc      # Prettier configuration
+├── jest.config.js   # Jest configuration
+├── cdk.json         # AWS CDK configuration (correctly references bin/app.js)
+└── .gitignore       # Git ignore rules
 ```
-
-## What Happens When You Run `npx typescript-and-chill`
-
-The installer will **NOT** include internal directories such as `bin/` or `templates/` in the created project. Instead, it will:
-
-- Generate necessary configuration files (`.eslintrc.js`, `.prettierrc`, `.prettierignore`, etc.).
-- Set up essential dependencies.
-- Create the correct project directory structure.
 
 ## Customization
 
@@ -75,7 +78,7 @@ You can choose which features to enable during setup:
 - Enable **Jest** for testing.
 - Add **CI/CD GitHub Actions workflow**.
 - Install **TypeScript** and `esbuild` for deployments.
-- Automate **changelog updates and version management**.
+- Use `-y` to skip prompts and install everything automatically.
 
 ## Running Tests
 
