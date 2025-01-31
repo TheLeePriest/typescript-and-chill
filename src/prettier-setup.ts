@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { execSync } from 'child_process';
 
 export const setupPrettier = (): void => {
   console.log('🛠️ Setting up Prettier...');
@@ -30,6 +31,9 @@ export const setupPrettier = (): void => {
       'ℹ️ .prettierignore file already exists or template is missing.'
     );
   }
+
+  console.log('📦 Installing prettier...');
+  execSync('npm install prettier', { stdio: 'inherit' });
 };
 
 module.exports = { setupPrettier };

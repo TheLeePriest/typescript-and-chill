@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { execSync } from 'child_process';
 
 export const setupTsConfig = (): void => {
   console.log('🛠️ Setting up TypeScript configuration...');
@@ -31,4 +32,7 @@ export const setupTsConfig = (): void => {
     );
     console.log('✅ Created src/index.ts to satisfy TypeScript compiler.');
   }
+
+  console.log('📦 Installing node types...');
+  execSync('npm install @types/node --save-dev', { stdio: 'inherit' });
 };
