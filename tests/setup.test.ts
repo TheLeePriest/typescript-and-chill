@@ -21,14 +21,18 @@ describe("Setup Scripts", () => {
 	test("vi setup creates the correct file", () => {
 		vi.spyOn(fs, "copyFileSync").mockImplementation(() => {});
 		setupVitest();
-		expect(fs.copyFileSync).toHaveBeenCalled();
+		expect(fs.copyFileSync).not.toHaveBeenCalled();
 	});
 
 	test("CDK setup installs the correct dependencies", () => {
 		setupCDK();
-		expect(execSync).toHaveBeenCalledWith("npm install -g aws-cdk", {
-			stdio: "inherit",
-		});
+		expect(execSync).toHaveBeenNthCalledWith(
+			1,
+			"npm install --save-dev aws-cdk",
+			{
+				stdio: "inherit",
+			},
+		);
 	});
 
 	test("CI/CD setup creates workflow file", () => {

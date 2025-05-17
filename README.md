@@ -13,8 +13,8 @@ This tool eliminates the need for manually setting up **ESLint, Prettier, Jest, 
 ✅ **Interactive CLI Setup** - Choose what to install based on project needs, or use the `-y` flag for automatic setup  
 ✅ **Project Structure Creation** - Automatically sets up directories for CDK and source code  
 ✅ **AWS CDK Initialization** - Ensures an up-to-date `cdk.json` configuration with the correct bin reference  
-✅ **Linting & Formatting** - Installs and configures **ESLint** and **Prettier**  
-✅ **Testing** - Configures **Jest** for unit testing  
+✅ **Linting & Formatting** - Installs and configures **Biome**
+✅ **Testing** - Configures **Vitest** for unit testing  
 ✅ **CI/CD Integration** - Automatically sets up GitHub Actions for deployment  
 ✅ **Automatic TypeScript Compilation** - Installs and configures `esbuild`  
 ✅ **Deployment Ready** - Ensures TypeScript projects are ready for AWS deployments
@@ -40,9 +40,9 @@ This will run the interactive CLI (or default to "yes" for all options if `-y` i
 When you run `npx typescript-and-chill`, the CLI:
 
 1. **Prompts for setup options** (CDK, Jest, ESLint, etc.), unless `-y` is specified.
-2. **Installs dependencies** (`aws-cdk`, `eslint`, `jest`, `prettier`, `typescript`, `esbuild`).
+2. **Installs dependencies** (`aws-cdk`, `biome`, `vitest`, `typescript`, `esbuild`).
 3. **Creates project directories** (`cdk/`, `cdk/stacks/`, `src/`).
-4. **Generates configuration files** (`.eslintrc.js`, `.prettierrc`, `jest.config.js`, `cdk.json`).
+4. **Generates configuration files** (`.biome.json`, `cdk.json`).
 5. **Ensures `cdk.json` is updated** - The correct bin file reference is automatically set.
 6. **Sets up CI/CD** - Adds a GitHub Actions workflow for automated deployments.
 7. **Ensures TypeScript Compilation** - Installs `esbuild` for efficient TS-to-JS compilation.
@@ -63,9 +63,7 @@ my-new-project/
 ├── package.json     # Project dependencies and scripts
 ├── README.md        # Documentation
 ├── tsconfig.json    # TypeScript configuration
-├── .eslintrc.js     # ESLint configuration
-├── .prettierrc      # Prettier configuration
-├── jest.config.js   # Jest configuration
+├── .biome.json      # Biome configuration
 ├── cdk.json         # AWS CDK configuration (correctly references bin/app.js)
 └── .gitignore       # Git ignore rules
 ```
@@ -75,7 +73,7 @@ my-new-project/
 You can choose which features to enable during setup:
 
 - Install **AWS CDK** (`cdk init` is automatically run for accuracy).
-- Enable **Jest** for testing.
+- Enable **Biome** for testing.
 - Add **CI/CD GitHub Actions workflow**.
 - Install **TypeScript** and `esbuild` for deployments.
 - Use `-y` to skip prompts and install everything automatically.
@@ -88,7 +86,7 @@ Unit tests ensure that all setup scripts function correctly:
 npm test
 ```
 
-This will run Jest tests that validate the correct setup of **ESLint, Prettier, Jest, AWS CDK, CI/CD workflows, and TypeScript compilation**.
+This will run Vitest tests that validate the correct setup of **Biome, Vitest, AWS CDK, CI/CD workflows, and TypeScript compilation**.
 
 ## Contributing
 
