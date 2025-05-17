@@ -1,8 +1,9 @@
 {
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.defaultFormatter": "biome",
+  "editor.formatOnPaste": true,
   "eslint.validate": ["javascript", "typescript"],
-    "editor.codeActionsOnSave": {
+  "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   }
 }
